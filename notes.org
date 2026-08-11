@@ -1,0 +1,82 @@
+* Data Structures
+Constructs that hold data.  They are tools used in solving problems.  A
+programming problem can use programming data structures.  A non-computer problem
+could use any other physical data structure.  Algorithms form the basis for the
+effectiveness of data structures.
+
+** Vector
+What is a Vector?
+
+A vector is a container of elements that automatically grows as more elements
+are added to it.  It has the same or similar facilities as an array.
+
+#+begin_src C++
+  #include <iostream>
+  #include <vector>
+  using namespace std;
+
+  int main()
+  {
+    vector<int> vec = { 3, 5, 7, 11 };
+    vec.push_back(13);
+
+    cout << "The 3rd element of the vector is " << vec[2] << endl;
+
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+: The 3rd element of the vector is 7
+
+** Searching Algorithms
+*** Linear Search
+#+begin_src csharp
+  int[] items = {1, 2, 3, 4, 5};
+  var itemToFind = 3;
+  var isFound = false;
+  var location = 0;
+
+  while ((location < items.Length) && !isFound) {
+      if(itemToFind == items[location]) {
+          isFound = true;
+      } else {
+          location = location + 1;
+      }
+  }
+
+  Console.WriteLine(isFound);
+  Console.WriteLine("Index: " + location);
+#+end_src
+
+#+RESULTS:
+| True   |   |
+| Index: | 2 |
+
+*** Binary Search
+We split the space in half and search each individual part.
+
+#+begin_src csharp
+  int[] items = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  int itemToFind = 6;
+  var isFound = false;
+  var first = 0;
+  var last = items.Length - 1;
+
+  while(first <= last && !isFound) {
+      var location = (first + last) / 2; // We look at the middle
+      if(itemToFind < items[location]) {
+          last = location - 1; // We now search the first half
+      } else if(items[location] < itemToFind) {
+          first = location + 1;
+      } else {
+          isFound = true; // Neither greater than or less than, so we are equal to
+          Console.WriteLine("Found item: " + itemToFind);
+          Console.WriteLine("At index: " + location);
+      }
+  }
+#+end_src
+
+#+RESULTS:
+| Found | item:  | 6 |
+| At    | index: | 5 |
