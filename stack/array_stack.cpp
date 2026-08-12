@@ -1,8 +1,8 @@
-#include "stack.h"
+#include "array_stack.h"
 #include <iostream>
 using namespace std;
 
-Stack::Stack(int store[], int size)
+ArrayStack::ArrayStack(int store[], int size)
 {
   this->size = size;
   this->capacity = size;
@@ -18,23 +18,23 @@ Stack::Stack(int store[], int size)
   this->topIndex = size - 1;
 }
 
-Stack::~Stack()
+ArrayStack::~ArrayStack()
 {
   delete[] this->dataPtr;
 }
 
-int Stack::top()
+int ArrayStack::top()
 {
   return this->dataPtr[topIndex];
 }
 
-void Stack::pop()
+void ArrayStack::pop()
 {
   this->topIndex = this->topIndex - 1;
   this->size--;
 }
 
-void Stack::push(int element)
+void ArrayStack::push(int element)
 {
   if(this->topIndex == (this->capacity - 1))
     {
@@ -46,7 +46,7 @@ void Stack::push(int element)
   cout << "Pushed " << element << endl;
 }
 
-void Stack::grow(int additionalCapacity)
+void ArrayStack::grow(int additionalCapacity)
 {
   cout << "Allocating " << additionalCapacity << " new data slots...\n";
   cout << "Current Capacity: " << this->capacity << endl;
@@ -63,17 +63,17 @@ void Stack::grow(int additionalCapacity)
   cout << "New capacity: " << this->capacity << endl;
 }
 
-int Stack::getSize()
+int ArrayStack::getSize()
 {
   return this->size;
 }
 
-int Stack::getCapacity()
+int ArrayStack::getCapacity()
 {
   return this->capacity;
 }
 
-bool Stack::isEmpty()
+bool ArrayStack::isEmpty()
 {
   return topIndex < 0;
 }

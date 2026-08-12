@@ -1,4 +1,5 @@
-#include "stack.h"
+#include "array_stack.h"
+#include "vector_stack.h"
 #include <iostream>
 using namespace std;
 
@@ -7,8 +8,7 @@ void displayTop(Stack& stack)
   cout << "top is " << stack.top();
 }
 
-void countOff(Stack& stack)
-{
+void countOff(Stack &stack) {
   int originalSize = stack.getSize();
   for (int i = 0; i < originalSize; i++)
     {
@@ -18,28 +18,55 @@ void countOff(Stack& stack)
   cout << "Who do we appreciate?\nPOINTERS!!!!\n";
 }
 
-int main()
-{
-  int primes[] = { 2, 3, 5, 7 };
-  Stack stack { primes, 4 };
+int main() {
+  int primes[] = {2, 3, 5, 7};
+  Stack *stackPtr;
+  {
+    ArrayStack stack{primes, 4};
+    stackPtr = &stack;
 
-  while(!stack.isEmpty())
-    {
+    while (!stackPtr->isEmpty()) {
       displayTop(stack);
       cout << endl << "Pop!\n";
-      stack.pop();
+      stackPtr->pop();
     }
-  cout << endl << "Empty? " << (stack.isEmpty() ? "Yup" : "Nope") << endl;
+    cout << endl << "Empty? " << (stackPtr->isEmpty() ? "Yup" : "Nope") << endl;
 
-  stack.push(10);
-  stack.push(8);
-  stack.push(6);
-  stack.push(4);
+    stackPtr->push(10);
+    stackPtr->push(8);
+    stackPtr->push(6);
+    stackPtr->push(4);
 
-  // This one should kick off a new allocation
-  stack.push(2);
+    // This one should kick off a new allocation
+    stackPtr->push(2);
 
-  countOff(stack);
+    countOff(*stackPtr);
+  }
+
+  {
+    VectorStack stack{primes, 4};
+    // Because of abstraction, I can reassign the pointer to point to a
+    // different type
+    stackPtr = &stack;
+
+    while (!stackPtr->isEmpty()) {
+      displayTop(stack);
+      cout << endl << "Pop!\n";
+      stackPtr->pop();
+    }
+
+    cout << "Starting capacity: " << stackPtr->getCapacity() << endl;
+    stackPtr->push(10);
+    stackPtr->push(8);
+    stackPtr->push(6);
+    stackPtr->push(4);
+    stackPtr->push(9);
+    stackPtr->push(13);
+    stackPtr->push(27);
+    cout << "Ending capacity: " << stackPtr->getCapacity() << endl;
+
+    countOff(*stackPtr);
+  }
 
   return 0;
 }
