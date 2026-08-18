@@ -1,15 +1,15 @@
-#include "array_stack.h"
 #include <iostream>
 using namespace std;
 
-ArrayStack::ArrayStack(int store[], int size)
+template <typename T>
+ArrayStack<T>::ArrayStack(T store[], int size)
 {
   this->size = size;
   this->capacity = size;
 
   // 1. Allocate memory on the heap according to the size
   // This is now a window into a range of data, addressable by int-sized chunks
-  this->dataPtr = new int[size];
+  this->dataPtr = new T[size];
 
   // 2. Fill the allocated memory from the back
   for (int i = 0; i < size; i++)
@@ -18,23 +18,27 @@ ArrayStack::ArrayStack(int store[], int size)
   this->topIndex = size - 1;
 }
 
-ArrayStack::~ArrayStack()
+template <typename T>
+ArrayStack<T>::~ArrayStack()
 {
   delete[] this->dataPtr;
 }
 
-int ArrayStack::top()
+template <typename T>
+T ArrayStack<T>::top()
 {
   return this->dataPtr[topIndex];
 }
 
-void ArrayStack::pop()
+template <typename T>
+void ArrayStack<T>::pop()
 {
   this->topIndex = this->topIndex - 1;
   this->size--;
 }
 
-void ArrayStack::push(int element)
+template <typename T>
+void ArrayStack<T>::push(int element)
 {
   if(this->topIndex == (this->capacity - 1))
     {
@@ -46,7 +50,8 @@ void ArrayStack::push(int element)
   cout << "Pushed " << element << endl;
 }
 
-void ArrayStack::grow(int additionalCapacity)
+template <typename T>
+void ArrayStack<T>::grow(int additionalCapacity)
 {
   cout << "Allocating " << additionalCapacity << " new data slots...\n";
   cout << "Current Capacity: " << this->capacity << endl;
@@ -63,17 +68,20 @@ void ArrayStack::grow(int additionalCapacity)
   cout << "New capacity: " << this->capacity << endl;
 }
 
-int ArrayStack::getSize()
+template <typename T>
+int ArrayStack<T>::getSize()
 {
   return this->size;
 }
 
-int ArrayStack::getCapacity()
+template <typename T>
+int ArrayStack<T>::getCapacity()
 {
   return this->capacity;
 }
 
-bool ArrayStack::isEmpty()
+template <typename T>
+bool ArrayStack<T>::isEmpty()
 {
   return topIndex < 0;
 }

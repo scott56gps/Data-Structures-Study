@@ -1,9 +1,9 @@
-#include "vector_stack.h"
 #include <vector>
 #include <iostream>
 using namespace std;
 
-VectorStack::VectorStack(int store[], int size)
+template <typename T>
+VectorStack<T>::VectorStack(T store[], int size)
 {
   this->data = vector<int>();
 
@@ -12,28 +12,19 @@ VectorStack::VectorStack(int store[], int size)
     this->data.push_back(store[i]);
 }
 
-VectorStack::~VectorStack()
-{
+template <typename T> VectorStack<T>::~VectorStack() {
   // delete[] this->dataPtr;
 }
 
-int VectorStack::top()
-{
-  return this->data.back();
-}
+template <typename T> T VectorStack<T>::top() { return this->data.back(); }
 
-void VectorStack::pop()
-{
-  this->data.pop_back();
-}
+template <typename T> void VectorStack<T>::pop() { this->data.pop_back(); }
 
-void VectorStack::push(int element)
-{
+template <typename T> void VectorStack<T>::push(int element) {
   this->data.push_back(element);
 }
 
-void VectorStack::grow(int additionalCapacity)
-{
+template <typename T> void VectorStack<T>::grow(int additionalCapacity) {
   cout << "Allocating " << additionalCapacity << " new data slots...\n";
   int newCapacity = this->data.capacity() + additionalCapacity;
 
@@ -42,17 +33,14 @@ void VectorStack::grow(int additionalCapacity)
   cout << "New capacity: " << this->data.capacity() << endl;
 }
 
-int VectorStack::getSize()
-{
+template <typename T> int VectorStack<T>::getSize() {
   return this->data.size();
 }
 
-int VectorStack::getCapacity()
-{
+template <typename T> int VectorStack<T>::getCapacity() {
   return this->data.capacity();
 }
 
-bool VectorStack::isEmpty()
-{
+template <typename T> bool VectorStack<T>::isEmpty() {
   return this->data.empty();
 }

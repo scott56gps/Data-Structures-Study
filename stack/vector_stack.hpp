@@ -3,14 +3,15 @@
 #include "stack.h"
 #include <vector>
 
-class VectorStack : public Stack
+template <typename T>
+class VectorStack : public Stack<T>
 {
  private:
-  std::vector<int> data;
+  std::vector<T> data;
  public:
-  VectorStack(int store[], int size);
+  VectorStack(T store[], int size);
   ~VectorStack();
-  int top() override;
+  T top() override;
   void pop() override;
   void push(int element) override;
   int getSize() override;
@@ -19,4 +20,5 @@ class VectorStack : public Stack
   bool isEmpty() override;
 };
 
+#include "vector_stack.tpp"
 #endif

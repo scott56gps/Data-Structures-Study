@@ -1,14 +1,13 @@
-#include "array_stack.h"
-#include "vector_stack.h"
+#include "array_stack.hpp"
+#include "vector_stack.hpp"
 #include <iostream>
 using namespace std;
 
-void displayTop(Stack& stack)
-{
+template <typename T> void displayTop(Stack<T> &stack) {
   cout << "top is " << stack.top();
 }
 
-void countOff(Stack &stack) {
+template <typename T> void countOff(Stack<T> &stack) {
   int originalSize = stack.getSize();
   for (int i = 0; i < originalSize; i++)
     {
@@ -20,9 +19,9 @@ void countOff(Stack &stack) {
 
 int main() {
   int primes[] = {2, 3, 5, 7};
-  Stack *stackPtr;
+  Stack<int> *stackPtr;
   {
-    ArrayStack stack{primes, 4};
+    ArrayStack<int> stack{primes, 4};
     stackPtr = &stack;
 
     while (!stackPtr->isEmpty()) {
@@ -44,7 +43,7 @@ int main() {
   }
 
   {
-    VectorStack stack{primes, 4};
+    VectorStack<int> stack{primes, 4};
     // Because of abstraction, I can reassign the pointer to point to a
     // different type
     stackPtr = &stack;

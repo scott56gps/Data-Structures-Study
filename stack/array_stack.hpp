@@ -2,17 +2,18 @@
 #define ARRAY_STACK_H
 #include "stack.h"
 
-class ArrayStack : public Stack
+template <typename T>
+class ArrayStack : public Stack<T>
 {
  private:
-  int* dataPtr; // We wish to model a single access point for the data
+  T* dataPtr; // We wish to model a single access point for the data
   int topIndex; // We will use an index to access the chunk of data we want
   int size; // Cardinality: How many elements
   int capacity; // Total allocated space for this container
  public:
-  ArrayStack(int store[], int size);
+  ArrayStack(T store[], int size);
   ~ArrayStack();
-  int top() override;
+  T top() override;
   void pop() override;
   void push(int element) override;
   int getSize() override;
@@ -21,4 +22,5 @@ class ArrayStack : public Stack
   bool isEmpty() override;
 };
 
+#include "array_stack.tpp" // Pull template's definitions in
 #endif
